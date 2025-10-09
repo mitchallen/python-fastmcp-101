@@ -1,6 +1,8 @@
 python-fastmcp-101
 ==
 
+A quick intro to using [FastMCP](https://gofastmcp.com) to generate an MCP server.
+
 ## Usage 
 
 ```sh
@@ -73,26 +75,27 @@ exit
 ```
 
 if you need to work in the virtual environment interactively:
-# First, sync dependencies (creates/updates the virtual environment)
+
+#### First, sync dependencies (creates/updates the virtual environment)
 
 ```sh
 uv sync
 ```
 
-# Then activate the virtual environment manually
-# On macOS/Linux, the virtual environment is typically at:
+#### Then activate the virtual environment manually
+#### On macOS/Linux, the virtual environment is typically at:
 
 ```sh
 source .venv/bin/activate
 ```
 
-# Now you can run fastmcp directly
+#### Now you can run fastmcp directly
 
 ```sh
 fastmcp version
 ```
 
-# When done, deactivate
+#### When done, deactivate
 
 ```sh
 deactivate
