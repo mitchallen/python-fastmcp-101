@@ -114,7 +114,6 @@ Claude Code checks the current working directory and only loads MCP servers conf
 * [FastMCP Installation](https://gofastmcp.com/getting-started/installation)
 
 ### Hosting
-* [Self-Hosted Remote MCP](https://gofastmcp.com/deployment/self-hosted)
 * [FastMCP Cloud](https://fastmcp.cloud/)
 * [FastMCP Cloud Guide](https://gofastmcp.com/deployment/fastmcp-cloud)
 
