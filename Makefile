@@ -1,7 +1,7 @@
 # Default target - show help when no argument is passed to make
 .DEFAULT_GOAL := help
 
-.PHONY: help install run dev test clean lint format sync
+.PHONY: help install run dev test clean lint format sync mcp-add mcp-list mcp-get mcp-remove
 
 help: ## Show this help message
 	@echo "Available commands:"
@@ -60,3 +60,15 @@ sync: ## Sync dependencies and lock file
 
 version: ## Show FastMCP version
 	uv run fastmcp version
+
+mcp-add: ## Add this MCP server to Claude Code (local scope)
+	claude mcp add --transport stdio fastmcp-101 --scope local -- uv run main.py
+
+mcp-list: ## List all configured MCP servers
+	claude mcp list
+
+mcp-get: ## Get details for this MCP server
+	claude mcp get fastmcp-101
+
+mcp-remove: ## Remove this MCP server from Claude Code
+	claude mcp remove fastmcp-101 -s local
