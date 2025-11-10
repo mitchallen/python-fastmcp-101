@@ -21,35 +21,24 @@ make test
 
 ## Testing with Claude Code on Mac
 
-To use this MCP server with Claude Code, you'll need to configure it in your Claude Code settings.
+Claude Code supports MCP server configuration at different scopes. For this project, we'll use **local scope** so the server is only loaded when working in this directory.
 
-### 1. Configure the MCP Server
+### 1. Configure the MCP Server (Local Scope)
 
-Add the server configuration to your Claude Code settings file:
+From this project directory, run:
 
 ```sh
-code ~/.config/claude-code/settings.json
+claude mcp add --transport stdio fastmcp-101 --scope local -- uv run main.py
 ```
 
-Add the following to the `mcpServers` section:
-
-```json
-{
-  "mcpServers": {
-    "fastmcp-101": {
-      "command": "uv",
-      "args": ["run", "main.py"],
-      "cwd": "/Users/YOUR_USERNAME/projects/python/python-fastmcp-101"
-    }
-  }
-}
-```
-
-**Note:** Replace `/Users/YOUR_USERNAME/projects/python/python-fastmcp-101` with the actual path to this project on your system.
+This command:
+- Configures the server for **this project only** (not globally)
+- Automatically uses the current directory as the working directory
+- Stores the configuration in project-specific user settings
 
 ### 2. Restart Claude Code
 
-After saving the settings file, restart Claude Code to load the MCP server.
+After adding the server, restart Claude Code to load it.
 
 ### 3. Test the Server
 
@@ -61,11 +50,30 @@ Use the greet tool to say hello to Alice
 
 Claude Code will automatically connect to your MCP server and use the `greet` tool defined in `main.py:12-16`.
 
+### Managing MCP Servers
+
+```sh
+# List all configured MCP servers
+claude mcp list
+
+# Get details for this server
+claude mcp get fastmcp-101
+
+# Remove this server
+claude mcp remove fastmcp-101
+```
+
+### Configuration Scopes
+
+- **Local scope** (recommended) - Project-specific, only loaded in this directory
+- **Project scope** - Shared via `.mcp.json` file (committed to repo)
+- **User scope** - Global across all projects
+
 ### Troubleshooting
 
-- **Server not appearing:** Check that the path in `cwd` is correct
+- **Server not appearing:** Run `claude mcp list` to verify it's configured
 - **Connection errors:** Ensure `uv` is installed (`brew install uv`)
-- **Tool not found:** Verify the server started by checking Claude Code logs
+- **Tool not found:** Check Claude Code logs for startup errors
 
 * * *
 
