@@ -60,7 +60,7 @@ claude mcp list
 claude mcp get fastmcp-101
 
 # Remove this server
-claude mcp remove fastmcp-101
+claude mcp remove fastmcp-101 -s local
 ```
 
 ### Configuration Scopes
