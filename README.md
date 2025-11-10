@@ -69,6 +69,31 @@ claude mcp remove fastmcp-101 -s local
 - **Project scope** - Shared via `.mcp.json` file (committed to repo)
 - **User scope** - Global across all projects
 
+### How Local Scope Configuration Works
+
+When you run `claude mcp add` with `--scope local`, it updates your `.claude.json` file in your home directory (`~/.claude.json`).
+
+The configuration includes:
+- **Server name and transport settings** - How to start the MCP server
+- **Working directory** - The path where the server should run (automatically set to the directory where you ran the command)
+- **Scope marker** - Indicates this is a local-scoped configuration
+
+Example structure in `~/.claude.json`:
+```json
+{
+  "mcpServers": {
+    "fastmcp-101": {
+      "command": "uv",
+      "args": ["run", "main.py"],
+      "cwd": "/Users/username/projects/python/python-fastmcp-101",
+      "scope": "local"
+    }
+  }
+}
+```
+
+Claude Code checks the current working directory and only loads MCP servers where the `cwd` matches. This ensures project-specific servers don't interfere with other projects.
+
 ### Troubleshooting
 
 - **Server not appearing:** Run `claude mcp list` to verify it's configured
