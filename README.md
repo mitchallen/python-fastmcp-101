@@ -73,26 +73,32 @@ claude mcp remove fastmcp-101 -s local
 
 When you run `claude mcp add` with `--scope local`, it updates your `.claude.json` file in your home directory (`~/.claude.json`).
 
-The configuration includes:
-- **Server name and transport settings** - How to start the MCP server
-- **Working directory** - The path where the server should run (automatically set to the directory where you ran the command)
-- **Scope marker** - Indicates this is a local-scoped configuration
+The configuration is stored under a `project` field, with project-specific settings keyed by the project's path. This structure includes:
+- **Server transport settings** - How to start the MCP server (type, command, args, env)
+- **Allowed tools** - List of tools that can be used without user approval
+- **MCP context URIs** - Resources that provide additional context
 
 Example structure in `~/.claude.json`:
 ```json
 {
-  "mcpServers": {
-    "fastmcp-101": {
-      "command": "uv",
-      "args": ["run", "main.py"],
-      "cwd": "/Users/username/projects/python/python-fastmcp-101",
-      "scope": "local"
+  "project": {
+    "/Users/username/projects/python/python-fastmcp-101": {
+      "allowedTools": [],
+      "mcpContextUris": [],
+      "mcpServers": {
+        "fastmcp-101": {
+          "type": "stdio",
+          "command": "uv",
+          "args": ["run", "main.py"],
+          "env": {}
+        }
+      }
     }
   }
 }
 ```
 
-Claude Code checks the current working directory and only loads MCP servers where the `cwd` matches. This ensures project-specific servers don't interfere with other projects.
+Claude Code checks the current working directory and only loads MCP servers configured for that specific project path. This ensures project-specific servers don't interfere with other projects.
 
 ### Troubleshooting
 
